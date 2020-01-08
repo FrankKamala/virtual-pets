@@ -39,6 +39,22 @@ public class PersonTest {
         assertEquals(true, Person.all().get(1).equals(secondPerson));
     }
 
+    @Test
+    public void save_assignsIdToObject() {
+        Person testPerson = new Person("Henry", "henry@henry.com");
+        testPerson.save();
+        Person savedPerson = Person.all().get(0);
+        assertEquals(testPerson.getId(), savedPerson.getId());
+    }
+    @Test
+    public void find_returnsPersonWithSameId_secondPerson() {
+        Person firstPerson = new Person("Henry", "henry@henry.com");
+        firstPerson.save();
+        Person secondPerson = new Person("Harriet", "harriet@harriet.com");
+        secondPerson.save();
+        assertEquals(Person.find(secondPerson.getId()), secondPerson);
+    }
+
 
 
 }

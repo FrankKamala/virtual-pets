@@ -31,19 +31,33 @@ public class Person {
     public String getName() {
         return name;
     }
-    public void save() {
-        try(Connection con = DB.sql2o.open()) {
-            String sql = "INSERT INTO persons (name, email) VALUES (:name, :email)";
-            con.createQuery(sql)
-                    .addParameter("name", this.name)
-                    .addParameter("email", this.email)
-                    .executeUpdate();
-        }
+    public int getId() {
+        return id;
     }
+
     public static List<Person> all() {
         String sql = "SELECT * FROM persons";
         try(Connection con = DB.sql2o.open()) {
             return con.createQuery(sql).executeAndFetch(Person.class);
+        }
+    }
+    public void save() {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "INSERT INTO persons (name, email) VALUES (:name, :email)";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("name", this.name)
+                    .addParameter("email", this.email)
+                    .executeUpdate()
+                    .getKey();
+        }
+    }
+    public static Person find(int id) {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM persons where id=:id";
+            Person person = con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Person.class);
+            return person;
         }
     }
 }
