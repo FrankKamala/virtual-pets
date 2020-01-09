@@ -110,4 +110,8 @@ public class Monster {
         sleepLevel--;
 
     }
+
+    public void play() {
+        playLevel++;
+    }
 }
