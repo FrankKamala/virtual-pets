@@ -20,6 +20,9 @@ public class Monster {
     public Monster(String name, int personId) {
         this.name=name;
         this.personId=personId;
+        playLevel = MAX_PLAY_LEVEL / 2;
+        sleepLevel = MAX_SLEEP_LEVEL / 2;
+        foodLevel=MAX_FOOD_LEVEL/2;
     }
     @Override
     public boolean equals(Object otherMonster){
@@ -71,5 +74,40 @@ public class Monster {
 
     public int getId(){
         return id;
+    }
+
+
+    //Levels details methods
+
+    public int getPlayLevel() {
+
+        return playLevel;
+    }
+
+    public int getSleepLevel() {
+
+        return sleepLevel;
+    }
+
+    public int getFoodLevel() {
+
+        return foodLevel;
+    }
+
+    public boolean isAlive() {
+        if (foodLevel <= MIN_ALL_LEVELS ||
+                playLevel <= MIN_ALL_LEVELS ||
+                sleepLevel <= MIN_ALL_LEVELS) {
+            return false;
+        }
+
+        return true;
+    }
+ // depleted level methods
+    public void depleteLevels() {
+        playLevel--;
+        foodLevel--;
+        sleepLevel--;
+
     }
 }
