@@ -8,6 +8,10 @@ public class Monster {
     private int id;
     private int personId;
 
+    private int foodLevel;
+    private int sleepLevel;
+    private int playLevel;
+
 
     public Monster(String name, int personId) {
         this.name=name;
