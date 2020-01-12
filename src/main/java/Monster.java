@@ -121,6 +121,9 @@ public class Monster {
     }
 
     public void feed() {
+        if (foodLevel>=MAX_FOOD_LEVEL){
+            throw new UnsupportedOperationException("Ah Taniua !");
+        }
         foodLevel++;
     }
 }
